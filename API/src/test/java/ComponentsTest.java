@@ -1,7 +1,7 @@
-import Components.Classroom;
-import Components.Course;
-import Components.Student;
-import Components.Teacher;
+import components.Classroom;
+import components.Course;
+import components.Student;
+import components.Teacher;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +45,6 @@ public class ComponentsTest {
 
     @Test
     public void TestCourse () {
-
         students.add(student);
 
         Assertions.assertEquals(0, Test.getId());
@@ -53,5 +52,33 @@ public class ComponentsTest {
         Assertions.assertEquals("test-teacher", Test.getTeacher().getName());
         Assertions.assertEquals("test-student", Test.getStudents().getFirst().getName());
         Assertions.assertEquals("test-classroom", Test.getClassroom().getName());
+    }
+
+    @Test
+    public void TestStudent() {
+        students.add(student);
+
+        Assertions.assertEquals(0, students.getFirst().getId());
+        Assertions.assertEquals("test-student", students.getFirst().getName());
+        Assertions.assertEquals("test-student-lastname", students.getFirst().getLastname());
+        Assertions.assertEquals(0, students.getFirst().getAge());
+        Assertions.assertEquals("0000000000", students.getFirst().getTelephone());
+        Assertions.assertEquals("test-student-address", students.getFirst().getAddress());
+    }
+
+    @Test
+    public void TestTeacher() {
+        Assertions.assertEquals(0, teacher.getId());
+        Assertions.assertEquals("test-teacher", teacher.getName());
+        Assertions.assertEquals("test-teacher-lastname", teacher.getLastname());
+        Assertions.assertEquals(0, teacher.getAge());
+        Assertions.assertEquals("0000000000", teacher.getTelephone());
+        Assertions.assertEquals("test-teacher-address", teacher.getAddress());
+    }
+
+    @Test
+    public void TestClassroom() {
+        Assertions.assertEquals("test-classroom", classroom.getName());
+        Assertions.assertEquals(10, classroom.getCapacity());
     }
 }
