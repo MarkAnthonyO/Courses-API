@@ -1,6 +1,6 @@
-package Generator;
+package generator;
 
-import Components.Student;
+import components.Student;
 
 public class StudentGenerator {
     public static void generate(Student student) {

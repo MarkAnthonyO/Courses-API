@@ -1,4 +1,4 @@
-package Components;
+package components;
 
 public class Student extends Person {
     private int id;

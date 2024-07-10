@@ -1,6 +1,6 @@
-package Generator;
+package generator;
 
-import Components.Course;
+import components.Course;
 
 public class CourseGenerator {
     public static void generate(Course course) {

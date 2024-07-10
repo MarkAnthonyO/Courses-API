@@ -1,6 +1,4 @@
-package Components;
-
-import java.util.ArrayList;
+package components;
 
 public class Classroom {
 

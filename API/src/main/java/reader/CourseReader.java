@@ -1,6 +1,6 @@
-package Reader;
+package reader;
 
-import Components.Course;
+import components.Course;
 
 public class CourseReader {
     public static Course read(int id) {
