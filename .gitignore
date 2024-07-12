@@ -18,6 +18,7 @@
 *.zip
 *.tar.gz
 *.rar
+API/client.db
 
 .DS_Store
 .idea
