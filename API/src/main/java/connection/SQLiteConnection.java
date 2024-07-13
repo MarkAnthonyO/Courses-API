@@ -8,7 +8,7 @@ public class SQLiteConnection {
     private static Connection connection;
     private static Statement statement;
 
-    public static void startDatabase() {
+    public static void openConnection() {
         try {
             if (!new File("client.db").exists()) {
                 connection = DriverManager.getConnection("jdbc:sqlite:client.db");
@@ -37,5 +37,15 @@ public class SQLiteConnection {
         }
 
         return res;
+    }
+
+    public static void closeConnection() {
+        try {
+            connection.close();
+            statement.close();
+        }
+        catch(SQLException e) {
+            e.printStackTrace(System.err);
+        }
     }
 }
