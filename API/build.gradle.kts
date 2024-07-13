@@ -2,8 +2,8 @@ plugins {
     id("java")
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
+group = "org.mark"
+version = "v0.0.1"
 
 repositories {
     mavenCentral()
@@ -15,6 +15,12 @@ dependencies {
     implementation("org.xerial:sqlite-jdbc:3.46.0.0")
 }
 
-tasks.test {
+tasks.named<Test>("test") {
     useJUnitPlatform()
+
+    maxHeapSize = "1G"
+
+    testLogging {
+        events("passed", "failed")
+    }
 }
