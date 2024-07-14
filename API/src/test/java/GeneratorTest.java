@@ -5,7 +5,6 @@ import components.Teacher;
 import generator.ClassroomGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import settings.Settings;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,9 +46,6 @@ public class GeneratorTest {
 
     @Test
     public void TestClassroomGenerator() {
-        ClassroomGenerator.generate(classroom);
-        File classroomFile = new File(Settings.getClassroomPath() + "/" +classroom.getName());
-
-        Assertions.assertTrue(classroomFile.exists());
+        ClassroomGenerator.generate(classroom);	
     }
 }

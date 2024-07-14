@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class SQLiteConnectionTest {
     @Test
     public void TestQuery() {
-        SQLiteConnection.startDatabase();
+        SQLiteConnection.openConnection();
 
         SQLiteConnection.query("INSERT INTO User(name) VALUES ('Martin')");
         ResultSet rs = SQLiteConnection.query("SELECT * FROM User");
@@ -20,5 +20,7 @@ public class SQLiteConnectionTest {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+
+        SQLiteConnection.closeConnection();
     }
 }
