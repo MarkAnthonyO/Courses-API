@@ -5,6 +5,7 @@ import components.Teacher;
 import connection.SQLiteConnection;
 import generator.ClassroomGenerator;
 import generator.CourseGenerator;
+import generator.TeacherGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -72,6 +73,25 @@ public class GeneratorTest {
 
         SQLiteConnection.openConnection();
         ResultSet rs = SQLiteConnection.query("SELECT * FROM Course WHERE name LIKE '%" + course.getName()+"%'");
+
+        try {
+            if (rs.next())
+                Assertions.assertTrue(true);
+            else
+                Assertions.fail();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        SQLiteConnection.closeConnection();
+    }
+
+    @Test
+    public void TestTeacherGenerator() {
+        TeacherGenerator.generate(teacher);
+
+        SQLiteConnection.openConnection();
+        ResultSet rs = SQLiteConnection.query("SELECT * FROM Teacher WHERE name LIKE '%" + teacher.getName()+"%'");
 
         try {
             if (rs.next())
