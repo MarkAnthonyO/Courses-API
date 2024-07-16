@@ -1,4 +1,7 @@
+import components.Classroom;
 import connection.SQLiteConnection;
+import generator.ClassroomGenerator;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.sql.ResultSet;
@@ -7,16 +10,20 @@ import java.sql.SQLException;
 public class SQLiteConnectionTest {
     @Test
     public void TestQuery() {
-        SQLiteConnection.openConnection();
 
-        SQLiteConnection.query("INSERT INTO User(name) VALUES ('Martin')");
-        ResultSet rs = SQLiteConnection.query("SELECT * FROM User");
+        Classroom classroom = new Classroom(
+                "test-classroom",
+                10
+        );
+
+        SQLiteConnection.openConnection();
+        ResultSet rs = SQLiteConnection.query("SELECT * FROM Classroom WHERE name LIKE '%" + classroom.getName()+"%'");
 
         try {
-            while (rs.next()) {
-                System.out.println("ID: " + rs.getInt("Id"));
-                System.out.println("Nombre: " + rs.getString("name"));
-            }
+            if (rs.next())
+                Assertions.assertTrue(true);
+            else
+                Assertions.fail();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
