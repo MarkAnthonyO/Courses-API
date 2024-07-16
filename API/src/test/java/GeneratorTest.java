@@ -2,11 +2,14 @@ import components.Classroom;
 import components.Course;
 import components.Student;
 import components.Teacher;
+import connection.SQLiteConnection;
 import generator.ClassroomGenerator;
+import generator.CourseGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class GeneratorTest {
@@ -36,7 +39,7 @@ public class GeneratorTest {
 
     ArrayList<Student> students = new ArrayList<>();
 
-    Course Test = new Course (
+    Course course = new Course (
             0,
             "test-course",
             teacher,
@@ -46,6 +49,39 @@ public class GeneratorTest {
 
     @Test
     public void TestClassroomGenerator() {
-        ClassroomGenerator.generate(classroom);	
+        ClassroomGenerator.generate(classroom);
+
+        SQLiteConnection.openConnection();
+        ResultSet rs = SQLiteConnection.query("SELECT * FROM Classroom WHERE name LIKE '%" + classroom.getName()+"%'");
+
+        try {
+            if (rs.next())
+                Assertions.assertTrue(true);
+            else
+                Assertions.fail();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        SQLiteConnection.closeConnection();
+    }
+
+    @Test
+    public void TestCourseGenerator() {
+        CourseGenerator.generate(course);
+
+        SQLiteConnection.openConnection();
+        ResultSet rs = SQLiteConnection.query("SELECT * FROM Course WHERE name LIKE '%" + course.getName()+"%'");
+
+        try {
+            if (rs.next())
+                Assertions.assertTrue(true);
+            else
+                Assertions.fail();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        SQLiteConnection.closeConnection();
     }
 }
