@@ -13,8 +13,8 @@ public class SQLiteConnection {
             if (!new File("client.db").exists()) {
                 connection = DriverManager.getConnection("jdbc:sqlite:client.db");
                 statement = connection.createStatement();
-                
 
+                statement.executeUpdate("CREATE TABLE Student(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(125), lastname VARCHAR(125), age INTEGER, telephone VARCHAR(10), address VARCHAR(255))");
                 statement.executeUpdate("CREATE TABLE Teacher(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(125), lastname VARCHAR(125), age INTEGER, telephone VARCHAR(10), address VARCHAR(255))");
                 statement.executeUpdate("CREATE TABLE Course(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(125), idTeacher INTEGER, idClassroom INTEGER)");
                 statement.executeUpdate("CREATE TABLE Classroom(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(125), capacity INTEGER)");
