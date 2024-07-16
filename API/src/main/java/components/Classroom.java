@@ -2,6 +2,7 @@ package components;
 
 public class Classroom {
 
+    private int id;
     private String name;
     private int capacity;
 
@@ -24,5 +25,13 @@ public class Classroom {
 
     public int getCapacity() {
         return capacity;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 }
