@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class GeneratorTest {
 
     Student student = new Student (
-            0,
+            1,
             "test-student",
             "test-student-lastname",
             0,
@@ -26,7 +26,7 @@ public class GeneratorTest {
     );
 
     Teacher teacher = new Teacher (
-            0,
+            1,
             "test-teacher",
             "test-teacher-lastname",
             0,
@@ -42,7 +42,7 @@ public class GeneratorTest {
     ArrayList<Student> students = new ArrayList<>();
 
     Course course = new Course (
-            0,
+            1,
             "test-course",
             teacher,
             students,
