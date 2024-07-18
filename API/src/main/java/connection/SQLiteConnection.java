@@ -15,8 +15,9 @@ public class SQLiteConnection {
                 statement = connection.createStatement();
 
                 statement.executeUpdate("CREATE TABLE Student(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(125), lastname VARCHAR(125), age INTEGER, telephone VARCHAR(10), address VARCHAR(255))");
+                statement.executeUpdate("CREATE TABLE StudentCourse(IdStudent INTEGER, IdCourse INTEGER)");
                 statement.executeUpdate("CREATE TABLE Teacher(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(125), lastname VARCHAR(125), age INTEGER, telephone VARCHAR(10), address VARCHAR(255))");
-                statement.executeUpdate("CREATE TABLE Course(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(125), idTeacher INTEGER, idClassroom INTEGER)");
+                statement.executeUpdate("CREATE TABLE Course(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(125), IdTeacher INTEGER, IdClassroom INTEGER)");
                 statement.executeUpdate("CREATE TABLE Classroom(Id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(125), capacity INTEGER)");
             } else {
                 connection = DriverManager.getConnection("jdbc:sqlite:client.db");
@@ -29,17 +30,17 @@ public class SQLiteConnection {
     }
 
     public static ResultSet query(String query) {
-        ResultSet res = null;
+        ResultSet rs = null;
 
         try {
             statement.setQueryTimeout(30);
-            res = statement.executeQuery(query);
+            rs = statement.executeQuery(query);
         }
         catch(SQLException e) {
             e.printStackTrace(System.err);
         }
 
-        return res;
+        return rs;
     }
 
     public static void closeConnection() {

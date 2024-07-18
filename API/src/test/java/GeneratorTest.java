@@ -3,10 +3,7 @@ import components.Course;
 import components.Student;
 import components.Teacher;
 import connection.SQLiteConnection;
-import generator.ClassroomGenerator;
-import generator.CourseGenerator;
-import generator.StudentGenerator;
-import generator.TeacherGenerator;
+import generator.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -35,6 +32,7 @@ public class GeneratorTest {
     );
 
     Classroom classroom = new Classroom(
+            1,
             "test-classroom",
             10
     );
@@ -51,9 +49,8 @@ public class GeneratorTest {
 
     @Test
     public void TestClassroomGenerator() {
-        ClassroomGenerator.generate(classroom);
-
         SQLiteConnection.openConnection();
+        ClassroomGenerator.generate(classroom);
         ResultSet rs = SQLiteConnection.query("SELECT * FROM Classroom WHERE name LIKE '%" + classroom.getName()+"%'");
 
         try {
@@ -70,15 +67,38 @@ public class GeneratorTest {
 
     @Test
     public void TestCourseGenerator() {
+        SQLiteConnection.openConnection();
+        classroom.setId(1);
         CourseGenerator.generate(course);
 
         SQLiteConnection.openConnection();
         ResultSet rs = SQLiteConnection.query("SELECT * FROM Course WHERE name LIKE '%" + course.getName()+"%'");
 
         try {
-            if (rs.next())
+            if (rs.next()) {
                 Assertions.assertTrue(true);
-            else
+            } else
+                Assertions.fail();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        SQLiteConnection.closeConnection();
+    }
+
+    @Test
+    public void TestStudentListGenerator() {
+        SQLiteConnection.openConnection();
+        course.getStudents().add(student);
+        StudentListGenerator.generate(course, course.getStudents());
+
+        SQLiteConnection.openConnection();
+        ResultSet rs = SQLiteConnection.query("SELECT * FROM StudentCourse WHERE IdCourse=" + course.getId());
+
+        try {
+            if (rs.next()) {
+                Assertions.assertTrue(true);
+            } else
                 Assertions.fail();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -89,6 +109,7 @@ public class GeneratorTest {
 
     @Test
     public void TestStudentGenerator() {
+        SQLiteConnection.openConnection();
         StudentGenerator.generate(student);
 
         SQLiteConnection.openConnection();
@@ -108,9 +129,9 @@ public class GeneratorTest {
 
     @Test
     public void TestTeacherGenerator() {
+        SQLiteConnection.openConnection();
         TeacherGenerator.generate(teacher);
 
-        SQLiteConnection.openConnection();
         ResultSet rs = SQLiteConnection.query("SELECT * FROM Teacher WHERE name LIKE '%" + teacher.getName()+"%'");
 
         try {

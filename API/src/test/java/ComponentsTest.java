@@ -28,6 +28,7 @@ public class ComponentsTest {
     );
 
     Classroom classroom = new Classroom(
+            1,
             "test-classroom",
             10
     );

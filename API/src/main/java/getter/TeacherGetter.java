@@ -8,7 +8,6 @@ import java.sql.SQLException;
 
 public class TeacherGetter {
     public static Teacher get(int id) {
-        SQLiteConnection.openConnection();
         ResultSet rs = SQLiteConnection.query("SELECT * FROM Teacher WHERE Id=" + id);
         Teacher teacher = null;
 
@@ -19,7 +18,6 @@ public class TeacherGetter {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-
         return teacher;
     }
 }

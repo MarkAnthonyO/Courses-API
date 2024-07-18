@@ -2,7 +2,9 @@ import components.Classroom;
 import components.Course;
 import components.Student;
 import components.Teacher;
+import connection.SQLiteConnection;
 import getter.ClassroomGetter;
+import getter.CourseGetter;
 import getter.StudentGetter;
 import getter.TeacherGetter;
 import org.junit.jupiter.api.Assertions;
@@ -31,6 +33,7 @@ public class GetterTest {
     );
 
     Classroom classroom = new Classroom(
+            1,
             "test-classroom",
             10
     );
@@ -47,16 +50,20 @@ public class GetterTest {
 
     @Test
     public void TestClassroomGetter() {
+        SQLiteConnection.openConnection();
         Classroom c = ClassroomGetter.get(1);
         classroom.setId(1);
 
         Assertions.assertEquals(classroom.getId(), c.getId());
         Assertions.assertEquals(classroom.getName(), c.getName());
         Assertions.assertEquals(classroom.getCapacity(), c.getCapacity());
+
+        SQLiteConnection.closeConnection();
     }
 
     @Test
     public void TestStudentGetter() {
+        SQLiteConnection.openConnection();
         Student s = StudentGetter.get(1);
 
         Assertions.assertEquals(student.getId(), s.getId());
@@ -65,10 +72,13 @@ public class GetterTest {
         Assertions.assertEquals(student.getAge(), s.getAge());
         Assertions.assertEquals(student.getTelephone(), s.getTelephone());
         Assertions.assertEquals(student.getAddress(), s.getAddress());
+
+        SQLiteConnection.closeConnection();
     }
 
     @Test
     public void TestTeacherGetter() {
+        SQLiteConnection.openConnection();
         Teacher t = TeacherGetter.get(1);
 
         Assertions.assertEquals(teacher.getId(), t.getId());
@@ -77,6 +87,24 @@ public class GetterTest {
         Assertions.assertEquals(teacher.getAge(), t.getAge());
         Assertions.assertEquals(teacher.getTelephone(), t.getTelephone());
         Assertions.assertEquals(teacher.getAddress(), t.getAddress());
+
+        SQLiteConnection.closeConnection();
+    }
+
+    @Test
+    public void TestCourseGetter() {
+        SQLiteConnection.openConnection();
+
+        Course t = CourseGetter.get(1);
+        course.getStudents().add(student);
+
+        Assertions.assertEquals(course.getId(), t.getId());
+        Assertions.assertEquals(course.getName(), t.getName());
+        Assertions.assertEquals(course.getClassroom().getName(), t.getClassroom().getName());
+        Assertions.assertEquals(course.getTeacher().getName(), t.getTeacher().getName());
+        Assertions.assertEquals(course.getStudents().getFirst().getName(), t.getStudents().getFirst().getName());
+
+        SQLiteConnection.closeConnection();
     }
 
 }
