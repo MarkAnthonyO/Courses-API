@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "org.mark"
-version = "v0.0.1"
+version = "v0.0.2"
 
 repositories {
     mavenCentral()
@@ -13,6 +13,13 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     implementation("org.xerial:sqlite-jdbc:3.46.0.0")
+}
+
+tasks.named<Javadoc>("javadoc") {
+    options {
+        this as StandardJavadocDocletOptions
+        addBooleanOption("Xdoclint:-accessibility", true)
+    }
 }
 
 tasks.named<Test>("test") {
