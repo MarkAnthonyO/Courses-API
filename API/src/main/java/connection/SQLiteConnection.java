@@ -3,11 +3,21 @@ package connection;
 import java.io.File;
 import java.sql.*;
 
+/**
+ * <h1>SQLiteConnection class</h1>
+ * @author MarkAnthonyO
+ * @version v1.0.0
+ */
 public class SQLiteConnection {
 
     private static Connection connection;
     private static Statement statement;
 
+    /**
+     * <h1>Start connection to SQLite file</h1>
+     * <h3>Example of use</h3>
+     * <pre>{@code SQLiteConnection.openConnection();}</pre>
+     */
     public static void openConnection() {
         try {
             if (!new File("client.db").exists()) {
@@ -29,6 +39,12 @@ public class SQLiteConnection {
         }
     }
 
+    /**
+     * <h1>Execute query</h1>
+     * <h3>Example of use</h3>
+     * <pre>{@code SQLiteConnection.query("SELECT * FROM table");}</pre>
+     * @return result of query
+     */
     public static ResultSet query(String query) {
         ResultSet rs = null;
 
@@ -43,6 +59,11 @@ public class SQLiteConnection {
         return rs;
     }
 
+    /**
+     * <h1>Close connection to SQLite file</h1>
+     * <h3>Example of use</h3>
+     * <pre>{@code SQLiteConnection.closeConnection();}</pre>
+     */
     public static void closeConnection() {
         try {
             connection.close();
