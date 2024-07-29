@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "org.mark"
-version = "v0.0.2"
+version = "v0.0.3"
 
 repositories {
     mavenCentral()
