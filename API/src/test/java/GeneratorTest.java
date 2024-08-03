@@ -49,8 +49,9 @@ public class GeneratorTest {
 
     @Test
     public void TestClassroomGenerator() {
-        SQLiteConnection.openConnection();
         ClassroomGenerator.generate(classroom);
+
+        SQLiteConnection.openConnection();
         ResultSet rs = SQLiteConnection.query("SELECT * FROM Classroom WHERE name LIKE '%" + classroom.getName()+"%'");
 
         try {
@@ -67,7 +68,6 @@ public class GeneratorTest {
 
     @Test
     public void TestCourseGenerator() {
-        SQLiteConnection.openConnection();
         classroom.setId(1);
         CourseGenerator.generate(course);
 
@@ -88,7 +88,6 @@ public class GeneratorTest {
 
     @Test
     public void TestStudentListGenerator() {
-        SQLiteConnection.openConnection();
         course.getStudents().add(student);
         StudentListGenerator.generate(course, course.getStudents());
 
@@ -109,7 +108,6 @@ public class GeneratorTest {
 
     @Test
     public void TestStudentGenerator() {
-        SQLiteConnection.openConnection();
         StudentGenerator.generate(student);
 
         SQLiteConnection.openConnection();
@@ -129,9 +127,9 @@ public class GeneratorTest {
 
     @Test
     public void TestTeacherGenerator() {
-        SQLiteConnection.openConnection();
         TeacherGenerator.generate(teacher);
 
+        SQLiteConnection.openConnection();
         ResultSet rs = SQLiteConnection.query("SELECT * FROM Teacher WHERE name LIKE '%" + teacher.getName()+"%'");
 
         try {

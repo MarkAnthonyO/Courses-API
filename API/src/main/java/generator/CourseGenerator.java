@@ -18,9 +18,11 @@ public class CourseGenerator {
      * @param course course to generate
      */
     public static void generate(Course course) {
+        SQLiteConnection.openConnection();
         SQLiteConnection.query("INSERT INTO Course(name, idTeacher, idClassroom) values('" +
                 course.getName() + "', " +
                 course.getTeacher().getId() + ", "+
                 course.getClassroom().getId() + ")");
+        SQLiteConnection.closeConnection();
     }
 }

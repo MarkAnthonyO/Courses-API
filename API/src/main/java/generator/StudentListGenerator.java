@@ -23,8 +23,10 @@ public class StudentListGenerator {
      * @param students students to generate
      */
     public static void generate(Course course, ArrayList<Student> students) {
+        SQLiteConnection.openConnection();
         for (var student : students) {
             SQLiteConnection.query("INSERT INTO StudentCourse(IdStudent, IdCourse) values (" + student.getId() + ", " + course.getId() + ")");
         }
+        SQLiteConnection.closeConnection();
     }
 }

@@ -24,6 +24,7 @@ public class ClassroomGetter {
      * @return classroom
      */
     public static Classroom get(int id) {
+        SQLiteConnection.openConnection();
         ResultSet rs = SQLiteConnection.query("SELECT * FROM Classroom WHERE Id=" + id);
         Classroom classroom = null;
 
@@ -35,6 +36,7 @@ public class ClassroomGetter {
             System.out.println(ex.getMessage());
         }
 
+        SQLiteConnection.closeConnection();
         return classroom;
     }
 
@@ -47,6 +49,7 @@ public class ClassroomGetter {
      * @return All classrooms
      */
     public static ArrayList<Classroom> getAll() {
+        SQLiteConnection.openConnection();
         ResultSet rs = SQLiteConnection.query("SELECT * FROM Classroom");
         ArrayList<Classroom> students = new ArrayList<>();
 
@@ -58,6 +61,7 @@ public class ClassroomGetter {
             System.out.println(ex.getMessage());
         }
 
+        SQLiteConnection.closeConnection();
         return students;
     }
 }

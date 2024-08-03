@@ -19,11 +19,13 @@ public class TeacherGenerator {
      * @param teacher teacher to generate
      */
     public static void generate(Teacher teacher) {
+        SQLiteConnection.openConnection();
         SQLiteConnection.query("INSERT INTO Teacher(name, lastname, age, telephone, address) values('" +
                 teacher.getName() + "', '" +
                 teacher.getLastname() + "',"+
                 teacher.getAge() + ", '" +
                 teacher.getTelephone() + "', '" +
                 teacher.getAddress() + "')");
+        SQLiteConnection.closeConnection();
     }
 }
