@@ -1,5 +1,6 @@
 package getter;
 
+import components.Course;
 import components.Student;
 import connection.SQLiteConnection;
 
@@ -38,6 +39,32 @@ public class StudentGetter {
 
         SQLiteConnection.closeConnection();
         return student;
+    }
+
+    /**
+     * <h1>Get student</h1>
+     * <h3>Example of use</h3>
+     * <pre>{@code
+     * ArrayList<Student> students = StudentGetter.get("test_name");
+     * }</pre>
+     * @param name name student
+     * @return courses
+     */
+    public static ArrayList<Student> get(String name) {
+        SQLiteConnection.openConnection();
+        ResultSet rs = SQLiteConnection.query("SELECT * FROM Student WHERE name LIKE '%" + name + "%'");
+        ArrayList<Student> students = new ArrayList<>();
+
+        try {
+            while (rs.next()) {
+                students.add(new Student(rs.getInt("Id"), rs.getString("name"), rs.getString("lastname"), rs.getInt("age"), rs.getString("telephone"), rs.getString("address")));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        SQLiteConnection.closeConnection();
+        return students;
     }
 
     /**

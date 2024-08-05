@@ -44,6 +44,36 @@ public class CourseGetter {
     }
 
     /**
+     * <h1>Get course</h1>
+     * <h3>Example of use</h3>
+     * <pre>{@code
+     * ArrayList<Course> courses = CourseGetter.get("test_name");
+     * }</pre>
+     * @param name name course
+     * @return courses
+     */
+    public static ArrayList<Course> get(String name) {
+        SQLiteConnection.openConnection();
+        ResultSet rs = SQLiteConnection.query("SELECT * FROM Course WHERE name LIKE '%" + name + "%'");
+        ArrayList<Course> courses = new ArrayList<>();
+
+        try {
+            while (rs.next()) {
+                int id = rs.getInt("Id");
+                String nameC = rs.getString("name");
+                int idTeacher = rs.getInt("IdTeacher");
+                int idClassroom = rs.getInt("IdClassroom");
+                courses.add(new Course(id, nameC, TeacherGetter.get(idTeacher), StudentListGetter.get(id), ClassroomGetter.get(idClassroom)));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        SQLiteConnection.closeConnection();
+        return courses;
+    }
+
+    /**
      * <h1>Get courses</h1>
      * <h3>Example of use</h3>
      * <pre>{@code

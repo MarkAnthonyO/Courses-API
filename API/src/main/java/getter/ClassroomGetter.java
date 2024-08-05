@@ -41,6 +41,32 @@ public class ClassroomGetter {
     }
 
     /**
+     * <h1>Get classroom</h1>
+     * <h3>Example of use</h3>
+     * <pre>{@code
+     * ArrayList<Classroom> classrooms = ClassroomGetter.get("test_name");
+     * }</pre>
+     * @param name name student
+     * @return classrooms
+     */
+    public static ArrayList<Classroom> get(String name) {
+        SQLiteConnection.openConnection();
+        ResultSet rs = SQLiteConnection.query("SELECT * FROM Classroom WHERE name LIKE '%" + name + "%'");
+        ArrayList<Classroom>  classrooms = new ArrayList<>();
+
+        try {
+            while (rs.next()) {
+                classrooms.add(new Classroom(rs.getInt("Id"), rs.getString("name"), rs.getInt("capacity")));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        SQLiteConnection.closeConnection();
+        return classrooms;
+    }
+
+    /**
      * <h1>Get all classroom</h1>
      * <h3>Example of use</h3>
      * <pre>{@code

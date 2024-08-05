@@ -45,6 +45,31 @@ public class TeacherGetter {
      * <h1>Get teachers</h1>
      * <h3>Example of use</h3>
      * <pre>{@code
+     * ArrayList<Teacher> teachers = TeacherGetter.get("test_name");
+     * }</pre>
+     * @return teachers
+     */
+    public static ArrayList<Teacher> get(String name) {
+        SQLiteConnection.openConnection();
+        ResultSet rs = SQLiteConnection.query("SELECT * FROM Teacher WHERE name LIKE '%" + name + "%'");
+        ArrayList<Teacher> teachers = new ArrayList<>();
+
+        try {
+            while (rs.next()) {
+                teachers.add(new Teacher(rs.getInt("Id"), rs.getString("name"), rs.getString("lastname"), rs.getInt("age"), rs.getString("telephone"), rs.getString("address")));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        SQLiteConnection.closeConnection();
+        return teachers;
+    }
+
+    /**
+     * <h1>Get teachers</h1>
+     * <h3>Example of use</h3>
+     * <pre>{@code
      * ArrayList<Teacher> teachers = TeacherGetter.getAll();
      * }</pre>
      * @return All teachers
