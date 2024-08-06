@@ -21,17 +21,10 @@ public class CourseGenerator {
      */
     public static void generate(Course course) {
         SQLiteConnection.openConnection();
-        ResultSet rs = SQLiteConnection.query("INSERT INTO Course(name, idTeacher, idClassroom) values('" +
+        SQLiteConnection.query("INSERT INTO Course(name, idTeacher, idClassroom) values('" +
                 course.getName() + "', " +
                 course.getTeacher().getId() + ", "+
                 course.getClassroom().getId() + ")");
-
-        try {
-            System.out.println("Id de curso" + rs.getInt("Id"));
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        StudentListGenerator.generate(course, course.getStudents());
+        SQLiteConnection.closeConnection();
     }
 }
