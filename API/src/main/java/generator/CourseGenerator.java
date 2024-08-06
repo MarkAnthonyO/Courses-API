@@ -3,6 +3,8 @@ package generator;
 import components.Course;
 import connection.SQLiteConnection;
 
+import java.sql.ResultSet;
+
 /**
  * <h1>CourseGenerator class</h1>
  * @author MarkAnthonyO
@@ -19,10 +21,17 @@ public class CourseGenerator {
      */
     public static void generate(Course course) {
         SQLiteConnection.openConnection();
-        SQLiteConnection.query("INSERT INTO Course(name, idTeacher, idClassroom) values('" +
+        ResultSet rs = SQLiteConnection.query("INSERT INTO Course(name, idTeacher, idClassroom) values('" +
                 course.getName() + "', " +
                 course.getTeacher().getId() + ", "+
                 course.getClassroom().getId() + ")");
-        SQLiteConnection.closeConnection();
+
+        try {
+            System.out.println("Id de curso" + rs.getInt("Id"));
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        StudentListGenerator.generate(course, course.getStudents());
     }
 }
